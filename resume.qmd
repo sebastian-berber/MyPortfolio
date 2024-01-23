@@ -1,89 +1,67 @@
 ---
-layout: cv
-title: Isaac Newtons's CV
+title: "Sebastian Berber Resume"
+subtitle: "Sebastian Berber Portfolio"
+# use quarto markdown to 
 ---
-# Isaac Newton
-Physicist, Mathematician, Cambridge professor.
 
-<div id="webaddress">
-<a href="isaac@applesdofall.org">isaac@applesdofall.org</a>
-| <a href="http://en.wikipedia.org/wiki/Isaac_Newton">My wikipedia page</a>
-</div>
+## Objective 
 
+Highly motivated and skilled individual with a diverse work history, seeking employment to save money for college.
+Experienced in various roles, including irrigation repair, customer service, technical support, and food delivery.
+Committed to providing exceptional service, demonstrating a strong work ethic, and achieving customer
+satisfaction
 
-## Currently
+## Skills
+    • Strong problem-solving and analytical abilities.
+    • Excellent customer service and communication skills.
+    • Proficient in computer repair and maintenance.
+    • Bilingual fluency in English and Spanish (written and spoken).
+    • Efficient and dependable, delivering results in a timely manner.
+    • Ability to work independently and as part of a team
 
-Standing on the shoulders of giants
+## Education:
+    • High School Diploma (year graduated: 2020)
+      Liberty Hill High School, Liberty Hill, Texas
+    • Bachelor's Degree in Data Science (expected completion: 2027)
+      Brigham Young University-Idaho, Rexburg, Idaho
 
-### Specialized in
+# Work Experience
 
-Laws of motion, gravitation, minting coins, disliking [Robert Hooke](http://en.wikipedia.org/wiki/Robert_Hooke)
+## Pressure Washing Technician, Binney and the Jets [Liberty Hill, Texas] May 2023 - Present
+    • Successfully pressure washed commercial vehicles and waste receptacles, maintaining their cleanliness
+      and appearance.
+    • Operated company truck, pulling the water tank and pressure washing trailer, ensuring efficient
+      completion of tasks.
+    • Conducted equipment maintenance and repairs to maximize performance and minimize downtime.
+## Volunteer Service, [States: Massachusetts, Connecticut, Rhode Island] April 2021 - May 2023
+    • Engaged directly with the public through social media and face-to-face meetings.
+    • Taught English speaking classes to non-English speakers, sharing language skills and promoting education.
+    • Volunteered at food banks and soup kitchens, serving the community in need.
+    • Served as a trainer for new missionaries and District Leader, providing training and guidance to other
+      missionaries.
+## Independent Contractor, Door Dash, [Austin, Texas] April 2021 - May 2023
+    • Delivered food orders promptly, providing excellent customer service and achieving substantial tips.
+    • Demonstrated adaptability and efficiency in a fast-paced, customer-focused environment.
+    • Maintained professionalism and ensured customer satisfaction.
+## Food Service Team Member, Whataburger, [Cedar Park, Texas] April 2020 - March 2021
+    • Took customer food orders with accuracy and efficiency.
+    • Demonstrated versatility by excelling in working at various food prep stations.
+    • Maintained cleanliness and organization in work areas to meet quality standards.
+    • Consistently delivered exceptional customer service, ensuring customer satisfaction and fostering positive
+      interactions and a positive dining experience.
+    • Received positive feedback from the employer for being dependable, hardworking, and displaying a
+      positive attitude.
+    • Collaborated with team members to ensure smooth workflow and efficient operations.
+## Computer Technician Intern, PraxiTek LLC [Cedar Park, Texas] March 2020 - April 2020
+    • Assisted senior technician in stripping, disassembling, and disposing of old computers.
+    • Conducted hard drive data sanitization and basic PC repairs under supervision.
+    • Participated in CAT 6 cable installation and performed basic equipment maintenance tasks.
+## Irrigation Repair Technician, OnDemand Sprinklers [Liberty Hill, Texas] June 2019 - August 2019
+    • Conducted pipe and sprinkler repairs, ensuring efficient and effective irrigation systems.
+    • Programmed sprinkler systems to meet specific client requirements and optimize water usage.
+    • Successfully couriered parts for management and other teams, ensuring seamless operations.
+    • Demonstrated professionalism and courtesy when interacting with customers, providing excellent service.
+    • Received consistent feedback from employer highlighting my speed, efficiency, and dep
 
+[MarkDown Basics](https://quarto.org/docs/authoring/markdown-basics.html#links-images)
 
-### Research interests
-
-Cooling, power series, optics, alchemy, planetary motions, apples.
-
-
-## Education
-
-`1654-1660`
-__The King's School, Grantham.__
-
-`June 1661 - now`
-__Trinity College, Cambridge__
-
-- Sizar
-
-`1667 - death`
-__Trinity College, Cambridge__
-
-- Fellow
-
-
-
-## Awards
-
-`2012`
-President, *Royal Society*, London, UK
-
-Associate, *French Academy of Science*, Paris, France
-
-
-
-## Publications
-
-<!-- A list is also available [online](http://scholar.google.co.uk/citations?user=LTOTl0YAAAAJ) -->
-
-### Journals
-
-`1669`
-Newton Sir I, De analysi per æquationes numero terminorum infinitas. 
-
-`1669`
-Lectiones opticæ.
-
-etc. etc. etc.
-
-### Patents
-
-`2012`
-Infinitesimal calculus for solutions to physics problems, [SMBC](http://www.techdirt.com/articles/20121011/09312820678/if-patents-had-been-around-time-newton.shtml) patent 001
-
-
-## Occupation
-
-`1600`
-__Royal Mint__, London
-
-- Warden
-- Minted coins
-
-`1600`
-__Lucasian professor of Mathematics__, Cambridge University
-
-
-
-<!-- ### Footer
-
-Last updated: May 2013 -->
