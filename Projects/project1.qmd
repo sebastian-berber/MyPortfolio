@@ -46,52 +46,75 @@ _A SHORT (4-5 SENTENCES) PARAGRAPH THAT `DESCRIBES KEY INSIGHTS` TAKEN FROM METR
 df = pd.read_csv("https://github.com/byuidatascience/data4names/raw/master/data-raw/names_year/names_year.csv")
 ```
 
+```{python}
+
+filtered = df.query("name == 'Oliver'")
+
+fig = filtered.filter(["name", "UT"]).sum()
+
+fig
+```
+
+```{python}
+
+name_fel = df.query("name == 'Felisha'")
+
+fig = name_fel.filter(["name", "year", "Total"])
+fig1 = px.bar(name_fel,
+    x = "year",
+    y = "Total")
+
+fig1.update_xaxes(range=[1950, 2000])
+fig1
+```
+
 __Highlight the Questions and Tasks__
 
 ## QUESTION|TASK 1
 
 __How does your name at your birth year compare to its use historically?__
 
-_type your results and analysis here_
+_Historically speaking, The name sebastian dropped after the year 2002 but later peaked again in 2006 and continued to have an increase in frequency the following years. The name seemed to start to become popular after the year 2000._
 
 ```{python}
 #| label: Q1
 #| code-summary: Read and format data
 # Include and execute your code here
+data_sebastian = df.query("name == 'Sebastian'")
 
+fig = px.bar(data_sebastian,
+    x = "year",
+    y = "Total",
+    title = "Babies Named Sebastian by Year")
 
-```
+fig.update_xaxes(range=[1970, 2016],
+                 title_text='Year (1970-2015)')
+fig.update_yaxes(title_text='Frequency')
 
-_include figures in chunks and discuss your findings in the figure._
-
-```{python}
-#| label: Q1 chart
-#| code-summary: plot example
-#| fig-cap: "My useless chart"
-#| fig-align: center
-# Include and execute your code here
-chart = px.bar(df.head(200),
-    x="name", 
-    y="AK"
+fig.update_layout(
+    shapes=[
+        dict(
+            type='line',
+            x0=2002,
+            x1=2002,
+            y0=10000,
+            y1=max(data_sebastian['AK']),  # Adjust the y-coordinate range as needed
+            line=dict(color='red', width=2)
+        )
+    ]
 )
-chart.show()
-```
 
+fig.update_layout(
+    annotations=[
+        dict(
+            x=1993,  # X-coordinate of the annotation
+            y=9000,  # Y-coordinate of the annotation
+            text='Year I was born (2002)',
+            showarrow=False
+        )
+    ]
+)
 
-```{python}
-#| label: Q1 table
-#| code-summary: table example
-#| tbl-cap: "Not much of a table"
-#| tbl-cap-location: top
-# Include and execute your code here
-mydat = df.head(1000)\
-    .groupby('year')\
-    .sum()\
-    .reset_index()\
-    .tail(10)\
-    .filter(["year", "AK","AR"])
-
-display(mydat)
 
 ```
 
@@ -100,46 +123,24 @@ display(mydat)
 
 __If you talked to someone named Brittany on the phone, what is your guess of his or her age? What ages would you not guess?__
 
-_type your results and analysis here_
+_Well from the look of the graph, The name Brittany peaked in the year 1990 and it had 32,000 babies named Brittany that year. So I would guess that her age would've been 34. I would not guess her age to be 40 or older neither 25 or younger becuase those would be the ages of when Brittany was starting to become popular and when the name was starting to become less popular._
 
 ```{python}
 #| label: Q2
 #| code-summary: Read and format data
 # Include and execute your code here
+data_brittany = df.query("name == 'Brittany'") 
 
+fig = px.bar(data_brittany,
+    x = "year",
+    y = "Total",
+    title = "Babies named Brittany by Birth Year")
 
-```
+fig.update_xaxes(range=[1970, 2016],
+                 title_text='Year (1970-2015)')
+fig.update_yaxes(title_text='Frequency')
 
-_include figures in chunks and discuss your findings in the figure._
-
-```{python}
-#| label: Q2 chart
-#| code-summary: plot example
-#| fig-cap: "My useless chart"
-#| fig-align: center
-# Include and execute your code here
-chart = px.bar(df.head(200),
-    x="name", 
-    y="AK"
-)
-chart.show()
-```
-
-
-```{python}
-#| label: Q2 table
-#| code-summary: table example
-#| tbl-cap: "Not much of a table"
-#| tbl-cap-location: top
-# Include and execute your code here
-mydat = df.head(1000)\
-    .groupby('year')\
-    .sum()\
-    .reset_index()\
-    .tail(10)\
-    .filter(["year", "AK","AR"])
-
-display(mydat)
+fig.show()
 
 ```
 
@@ -148,47 +149,22 @@ display(mydat)
 
 __Mary, Martha, Peter, and Paul are all Christian names. From 1920 - 2000, compare the name usage of each of the four names. What trends do you notice?__
 
-_type your results and analysis here_
+_Well, from the graph, I can tell that the name trends became popular between 1940 and 1960. Mary had a huge portion of the trend but they all peacked between those times._
 
 ```{python}
 #| label: Q3
 #| code-summary: Read and format data
 # Include and execute your code here
+selected_names = ['Mary', 'Martha', 'Peter', 'Paul']
+filtered_df = df[(df['name'].isin(selected_names))]
 
+filtered_df1 = px.bar(filtered_df,
+    x = "year",
+    y = "Total",
+    color = "name")
 
-```
-
-_include figures in chunks and discuss your findings in the figure._
-
-```{python}
-#| label: Q3 chart
-#| code-summary: plot example
-#| fig-cap: "My useless chart"
-#| fig-align: center
-# Include and execute your code here
-chart = px.bar(df.head(200),
-    x="name", 
-    y="AK"
-)
-chart.show()
-```
-
-
-```{python}
-#| label: Q3 table
-#| code-summary: table example
-#| tbl-cap: "Not much of a table"
-#| tbl-cap-location: top
-# Include and execute your code here
-mydat = df.head(1000)\
-    .groupby('year')\
-    .sum()\
-    .reset_index()\
-    .tail(10)\
-    .filter(["year", "AK","AR"])
-
-display(mydat)
-
+filtered_df1.update_xaxes(range=[1920, 2000])
+filtered_df1
 ```
 
 ## QUESTION|TASK 4
@@ -202,38 +178,49 @@ _type your results and analysis here_
 #| code-summary: Read and format data
 # Include and execute your code here
 
+name_luke = df.query("name == 'Luke'")
 
-```
+fig = px.bar(name_luke,
+    x = "year",
+    y = "Total")
 
-_include figures in chunks and discuss your findings in the figure._
 
-```{python}
-#| label: Q3 chart
-#| code-summary: plot example
-#| fig-cap: "My useless chart"
-#| fig-align: center
-# Include and execute your code here
-chart = px.bar(df.head(200),
-    x="name", 
-    y="AK"
+fig.update_xaxes(range=[1975, 2015])
+fig.update_layout(
+    shapes=[
+        dict(
+            type='line',
+            yref='paper',
+            y0=0,
+            y1=1,
+            xref='x',
+            x0='1977',
+            x1='1977',
+            line=dict(color='yellow'),
+        ),
+        dict(
+            type='line',
+            yref='paper',
+            y0=0,
+            y1=1,
+            xref='x',
+            x0='1980',
+            x1='1980',
+            line=dict(color='red'),
+        ),
+        dict(
+            type='line',
+            yref='paper',
+            y0=0,
+            y1=1,
+            xref='x',
+            x0='1983',
+            x1='1983',
+            line=dict(color='green'),
+        )
+    ],
 )
-chart.show()
+
+fig.show()
 ```
 
-
-```{python}
-#| label: Q3 table
-#| code-summary: table example
-#| tbl-cap: "Not much of a table"
-#| tbl-cap-location: top
-# Include and execute your code here
-mydat = df.head(1000)\
-    .groupby('year')\
-    .sum()\
-    .reset_index()\
-    .tail(10)\
-    .filter(["year", "AK","AR"])
-
-display(mydat)
-
-```
