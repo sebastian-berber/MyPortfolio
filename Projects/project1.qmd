@@ -143,7 +143,7 @@ filtered_df1 = px.bar(filtered_df,
     title = "Chistian Names By Year")
 
 filtered_df1.update_xaxes(range=[1920, 2000],
-                          title = "Names By Year")
+                          title = "Year (1920-2000)")
 
 filtered_df1.update_yaxes(title = "Frequency")
 
@@ -170,7 +170,7 @@ fig = px.bar(name_luke,
 
 
 fig.update_xaxes(range=[1975, 2015],
-                 title = "Babies Named Luke by Year")
+                 title = "Year (1975-2015)")
 fig.update_yaxes(title = "Frequency")
 fig.update_layout(
     shapes=[
