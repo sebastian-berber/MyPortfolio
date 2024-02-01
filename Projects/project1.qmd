@@ -85,7 +85,7 @@ fig.update_layout(
 fig.update_layout(
     annotations=[
         dict(
-            x=1993,  # X-coordinate of the annotation
+            x=1995,  # X-coordinate of the annotation
             y=9000,  # Y-coordinate of the annotation
             text='Year I was born (2002)',
             showarrow=False
@@ -144,7 +144,9 @@ filtered_df1 = px.bar(filtered_df,
 
 filtered_df1.update_xaxes(range=[1920, 2000],
                           title = "Names By Year")
+
 filtered_df1.update_yaxes(title = "Frequency")
+
 filtered_df1
 ```
 
