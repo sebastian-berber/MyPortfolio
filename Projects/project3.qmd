@@ -1,7 +1,7 @@
 ---
-title: "Client Report - [Insert Project Title]"
+title: "Client Report - Finding relationships in baseball"
 subtitle: "Course DS 250"
-author: "[STUDENT NAME]"
+author: "Sebastian Berber"
 format:
   html:
     self-contained: true
@@ -31,6 +31,7 @@ execute:
 import pandas as pd
 import numpy as np
 import plotly.express as px
+import sqlite3
 ```
 
 
@@ -43,112 +44,95 @@ _A SHORT (4-5 SENTENCES) PARAGRAPH THAT `DESCRIBES KEY INSIGHTS` TAKEN FROM METR
 #| label: project data
 #| code-summary: Read and format project data
 # Include and execute your code here
-df = pd.read_csv("https://github.com/byuidatascience/data4names/raw/master/data-raw/names_year/names_year.csv")
+
+sqlite_file = 'lahmansbaseballdb.sqlite'
+con = sqlite3.connect(sqlite_file)
 ```
 
-__Highlight the Questions and Tasks__
+```{python}
+q6 = '''
+    SELECT playerID
+    ,      AB
+    ,      H
+    ,      yearID
+    ,      H/(AB * 1.0) AS 'Batting_Average'
+    FROM batting
+    WHERE playerID = 'addybo01'
+'''
+
+df = pd.read_sql_query(q6, con)
+
+df
+
+```
 
 ## QUESTION|TASK 1
 
-__COPY PASTE QUESTION|TASK 1 FROM THE PROJECT HERE__
-
-_type your results and analysis here_
+__Write an SQL query to create a new dataframe about baseball players who attended BYU-Idaho. The new table should contain five columns: playerID, schoolID, salary, and the yearID/teamID associated with each salary. Order the table by salary (highest to lowest) and print out the table in your report.__
 
 ```{python}
 #| label: Q1
 #| code-summary: Read and format data
 # Include and execute your code here
 
+q = '''
+    SELECT DISTINCT allstarfull.playerID, collegeplaying.schoolID, salaries.salary, salaries.yearID, salaries.teamID
+    FROM allstarfull 
+    INNER JOIN collegeplaying
+    ON allstarfull.playerID = collegeplaying.playerID
+    INNER JOIN salaries
+    ON salaries.playerID = allstarfull.playerID
+    WHERE collegeplaying.schoolID LIKE ('byu%')
+    ORDER BY salary
+'''
+# comment
+results1 = pd.read_sql_query(q, con)
 
-```
-
-_include figures in chunks and discuss your findings in the figure._
-
-```{python}
-#| label: Q1 chart
-#| code-summary: plot example
-#| fig-cap: "My useless chart"
-#| fig-align: center
-# Include and execute your code here
-chart = px.bar(df.head(200),
-    x="name", 
-    y="AK"
-)
-chart.show()
-```
-
-
-```{python}
-#| label: Q1 table
-#| code-summary: table example
-#| tbl-cap: "Not much of a table"
-#| tbl-cap-location: top
-# Include and execute your code here
-mydat = df.head(1000)\
-    .groupby('year')\
-    .sum()\
-    .reset_index()\
-    .tail(10)\
-    .filter(["year", "AK","AR"])
-
-display(mydat)
+results1
 
 ```
 
 
 ## QUESTION|TASK 2
 
-__COPY PASTE QUESTION|TASK 2 FROM THE PROJECT HERE__
+__This three-part question requires you to calculate batting average (number of hits divided by the number of at-bats)__
 
-_type your results and analysis here_
+_a. Write an SQL query that provides playerID, yearID, and batting average for players with at least 1 at bat that year. Sort the table from highest batting average to lowest, and then by playerid alphabetically. Show the top 5 results in your report._
 
 ```{python}
-#| label: Q2
+#| label: Q2a
 #| code-summary: Read and format data
 # Include and execute your code here
 
 
 ```
 
-_include figures in chunks and discuss your findings in the figure._
+
+_b. Use the same query as above, but only include players with at least 10 at bats that year. Print the top 5 results._
 
 ```{python}
-#| label: Q2 chart
-#| code-summary: plot example
-#| fig-cap: "My useless chart"
-#| fig-align: center
+#| label: Q2b
+#| code-summary: Read and format data
 # Include and execute your code here
-chart = px.bar(df.head(200),
-    x="name", 
-    y="AK"
-)
-chart.show()
+
+
 ```
 
+_c. Now calculate the batting average for players over their entire careers (all years combined). Only include players with at least 100 at bats, and print the top 5 results._
 
 ```{python}
-#| label: Q2 table
-#| code-summary: table example
-#| tbl-cap: "Not much of a table"
-#| tbl-cap-location: top
+#| label: Q2c
+#| code-summary: Read and format data
 # Include and execute your code here
-mydat = df.head(1000)\
-    .groupby('year')\
-    .sum()\
-    .reset_index()\
-    .tail(10)\
-    .filter(["year", "AK","AR"])
 
-display(mydat)
 
 ```
 
 
 ## QUESTION|TASK 3
 
-__COPY PASTE QUESTION|TASK 3 FROM THE PROJECT HERE__
+__Pick any two baseball teams and compare them using a metric of your choice (average salary, home runs, number of wins, etc). Write an SQL query to get the data you need, then make a graph using Plotly Express to visualize the comparison. What do you learn?__
 
-_type your results and analysis here_
 
 ```{python}
 #| label: Q3
@@ -158,35 +142,4 @@ _type your results and analysis here_
 
 ```
 
-_include figures in chunks and discuss your findings in the figure._
 
-```{python}
-#| label: Q3 chart
-#| code-summary: plot example
-#| fig-cap: "My useless chart"
-#| fig-align: center
-# Include and execute your code here
-chart = px.bar(df.head(200),
-    x="name", 
-    y="AK"
-)
-chart.show()
-```
-
-
-```{python}
-#| label: Q3 table
-#| code-summary: table example
-#| tbl-cap: "Not much of a table"
-#| tbl-cap-location: top
-# Include and execute your code here
-mydat = df.head(1000)\
-    .groupby('year')\
-    .sum()\
-    .reset_index()\
-    .tail(10)\
-    .filter(["year", "AK","AR"])
-
-display(mydat)
-
-```

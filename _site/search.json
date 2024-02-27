@@ -144,6 +144,28 @@
     ]
   },
   {
+    "objectID": "Projects/project2.html#questiontask-4",
+    "href": "Projects/project2.html#questiontask-4",
+    "title": "Client Report - Late flights and Missing Data",
+    "section": "QUESTION|TASK 4",
+    "text": "QUESTION|TASK 4\nAccording to the BTS website, the “Weather” category only accounts for severe weather delays. Mild weather delays are not counted in the “Weather” category, but are actually included in both the “NAS” and “Late-Arriving Aircraft” categories. Your job is to create a new column that calculates the total number of flights delayed by weather (both severe and mild). Use these three rules for your calculations:\nA. 100% of delayed flights in the Weather category are due to weather\nB. 30% of all delayed flights in the Late-Arriving category are due to weather.\nC. From April to August, 40% of delayed flights in the NAS category are due to weather. The rest of the months, the proportion rises to 65%.\n\n\nShow the code\n#%%\nflights = df \n\nweather = (flights.assign(\n    severe = flights.num_of_delays_weather, # no missing\n    nodla_nona = lambda x: (x.num_of_delays_late_aircraft\n        .replace(-999, np.nan)), #missing is -999\n    mild_late = lambda x: x.nodla_nona.fillna(x.nodla_nona.mean())*0.3,\n    mild = np.where( # like an if statement\n        flights.month.isin(['April', 'May', 'June', 'July', 'August']), \n            flights.num_of_delays_nas*0.4,\n            flights.num_of_delays_nas*0.65),\n    weather = lambda x: x.severe + x.mild_late + x.mild,\n    proportion_weather_delay = lambda x: x.weather / x.num_of_delays_total,\n    proportion_weather_total = lambda x:  x.weather / x.num_of_flights_total)\n    .filter(['airport_code','month','year', 'severe','mild', 'mild_late',\n    'weather', 'proportion_weather_total', \n    'proportion_weather_delay', 'num_of_flights_total', 'num_of_delays_total']))\nweather.head()\n\n\n\n\n\n\n\n\n\nairport_code\nmonth\nyear\nsevere\nmild\nmild_late\nweather\nproportion_weather_total\nproportion_weather_delay\nnum_of_flights_total\nnum_of_delays_total\n\n\n\n\n0\nATL\nJanuary\n2005.0\n448\n2988.70\n0.0\n3436.70\n0.098057\n0.411335\n35048\n8355\n\n\n1\nDEN\nJanuary\n2005.0\n233\n607.75\n278.4\n1119.15\n0.088212\n0.354948\n12687\n3153\n\n\n2\nIAD\nJanuary\n2005.0\n61\n581.75\n317.4\n960.15\n0.077550\n0.395123\n12381\n2430\n\n\n3\nORD\nJanuary\n2005.0\n306\n3519.75\n676.5\n4502.25\n0.159688\n0.490548\n28194\n9178\n\n\n4\nSAN\nJanuary\n2005.0\n56\n414.70\n204.0\n674.70\n0.092640\n0.345645\n7283\n1952",
+    "crumbs": [
+      "DS250 Projects",
+      "Project 2"
+    ]
+  },
+  {
+    "objectID": "Projects/project2.html#questiontask-5",
+    "href": "Projects/project2.html#questiontask-5",
+    "title": "Client Report - Late flights and Missing Data",
+    "section": "QUESTION|TASK 5",
+    "text": "QUESTION|TASK 5\nUsing the new weather variable calculated above, create a barplot showing the proportion of all flights that are delayed by weather at each airport. Discuss what you learn from this graph.\nFrom the looks of it, the smallest mean proportion of delays comes from the San Diego Airport while the largest mean proportion of delays comes from San Francisco. From the looks of it, all of the airports have around 30% of flights dealyed to weather which is a huge proportion if you think about it. That is around 1/3 of all flights total!\n\n\nShow the code\nprop_mean = weather.groupby('airport_code')['proportion_weather_delay'].mean()\n\nfig4 = px.bar(prop_mean, title = \"Mean Proportion of Delays Due To Weather For Each Airport\")\nfig4.update_xaxes(title = \"Airport\")\nfig4.update_yaxes(title = \"Proportion Of Weather Delays\")\n\nfig4.show()\nprop_mean\n\n\n                                                \n\n\nairport_code\nATL    0.337303\nDEN    0.316984\nIAD    0.300992\nORD    0.368703\nSAN    0.278825\nSFO    0.371091\nSLC    0.290117\nName: proportion_weather_delay, dtype: float64",
+    "crumbs": [
+      "DS250 Projects",
+      "Project 2"
+    ]
+  },
+  {
     "objectID": "ml.html",
     "href": "ml.html",
     "title": "about me",
@@ -296,9 +318,9 @@
   {
     "objectID": "Projects/project3.html",
     "href": "Projects/project3.html",
-    "title": "Client Report - [Insert Project Title]",
+    "title": "Client Report - Finding relationships in baseball",
     "section": "",
-    "text": "paste your elevator pitch here A SHORT (4-5 SENTENCES) PARAGRAPH THAT DESCRIBES KEY INSIGHTS TAKEN FROM METRICS IN THE PROJECT RESULTS THINK TOP OR MOST IMPORTANT RESULTS.\n\n\nRead and format project data\n# Include and execute your code here\ndf = pd.read_csv(\"https://github.com/byuidatascience/data4names/raw/master/data-raw/names_year/names_year.csv\")\n\n\nHighlight the Questions and Tasks",
+    "text": "paste your elevator pitch here A SHORT (4-5 SENTENCES) PARAGRAPH THAT DESCRIBES KEY INSIGHTS TAKEN FROM METRICS IN THE PROJECT RESULTS THINK TOP OR MOST IMPORTANT RESULTS.\n\n\nRead and format project data\n# Include and execute your code here\n\nsqlite_file = 'lahmansbaseballdb.sqlite'\ncon = sqlite3.connect(sqlite_file)\n\n\n\n\nShow the code\nq6 = '''\n    SELECT playerID\n    ,      AB\n    ,      H\n    ,      yearID\n    ,      H/(AB * 1.0) AS 'Batting_Average'\n    FROM batting\n    WHERE playerID = 'addybo01'\n'''\n\ndf = pd.read_sql_query(q6, con)\n\ndf\n\n\n\n\n\n\n\n\n\nplayerID\nAB\nH\nyearID\nBatting_Average\n\n\n\n\n0\naddybo01\n118\n32\n1871\n0.271186\n\n\n1\naddybo01\n51\n16\n1873\n0.313725\n\n\n2\naddybo01\n152\n54\n1873\n0.355263\n\n\n3\naddybo01\n213\n51\n1874\n0.239437\n\n\n4\naddybo01\n310\n80\n1875\n0.258065\n\n\n5\naddybo01\n142\n40\n1876\n0.281690\n\n\n6\naddybo01\n245\n68\n1877\n0.277551",
     "crumbs": [
       "DS250 Projects",
       "Project 3"
@@ -307,9 +329,9 @@
   {
     "objectID": "Projects/project3.html#elevator-pitch",
     "href": "Projects/project3.html#elevator-pitch",
-    "title": "Client Report - [Insert Project Title]",
+    "title": "Client Report - Finding relationships in baseball",
     "section": "",
-    "text": "paste your elevator pitch here A SHORT (4-5 SENTENCES) PARAGRAPH THAT DESCRIBES KEY INSIGHTS TAKEN FROM METRICS IN THE PROJECT RESULTS THINK TOP OR MOST IMPORTANT RESULTS.\n\n\nRead and format project data\n# Include and execute your code here\ndf = pd.read_csv(\"https://github.com/byuidatascience/data4names/raw/master/data-raw/names_year/names_year.csv\")\n\n\nHighlight the Questions and Tasks",
+    "text": "paste your elevator pitch here A SHORT (4-5 SENTENCES) PARAGRAPH THAT DESCRIBES KEY INSIGHTS TAKEN FROM METRICS IN THE PROJECT RESULTS THINK TOP OR MOST IMPORTANT RESULTS.\n\n\nRead and format project data\n# Include and execute your code here\n\nsqlite_file = 'lahmansbaseballdb.sqlite'\ncon = sqlite3.connect(sqlite_file)\n\n\n\n\nShow the code\nq6 = '''\n    SELECT playerID\n    ,      AB\n    ,      H\n    ,      yearID\n    ,      H/(AB * 1.0) AS 'Batting_Average'\n    FROM batting\n    WHERE playerID = 'addybo01'\n'''\n\ndf = pd.read_sql_query(q6, con)\n\ndf\n\n\n\n\n\n\n\n\n\nplayerID\nAB\nH\nyearID\nBatting_Average\n\n\n\n\n0\naddybo01\n118\n32\n1871\n0.271186\n\n\n1\naddybo01\n51\n16\n1873\n0.313725\n\n\n2\naddybo01\n152\n54\n1873\n0.355263\n\n\n3\naddybo01\n213\n51\n1874\n0.239437\n\n\n4\naddybo01\n310\n80\n1875\n0.258065\n\n\n5\naddybo01\n142\n40\n1876\n0.281690\n\n\n6\naddybo01\n245\n68\n1877\n0.277551",
     "crumbs": [
       "DS250 Projects",
       "Project 3"
@@ -318,9 +340,9 @@
   {
     "objectID": "Projects/project3.html#questiontask-1",
     "href": "Projects/project3.html#questiontask-1",
-    "title": "Client Report - [Insert Project Title]",
+    "title": "Client Report - Finding relationships in baseball",
     "section": "QUESTION|TASK 1",
-    "text": "QUESTION|TASK 1\nCOPY PASTE QUESTION|TASK 1 FROM THE PROJECT HERE\ntype your results and analysis here\n\n\nRead and format data\n# Include and execute your code here\n\n\ninclude figures in chunks and discuss your findings in the figure.\n::: {#cell-Q1 chart .cell execution_count=4}\n\nplot example\n# Include and execute your code here\nchart = px.bar(df.head(200),\n    x=\"name\", \n    y=\"AK\"\n)\nchart.show()\n\n\n                                                \nMy useless chart\n\n:::\n::: {#cell-Q1 table .cell .tbl-cap-location-top tbl-cap=‘Not much of a table’ execution_count=5}\n\ntable example\n# Include and execute your code here\nmydat = df.head(1000)\\\n    .groupby('year')\\\n    .sum()\\\n    .reset_index()\\\n    .tail(10)\\\n    .filter([\"year\", \"AK\",\"AR\"])\n\ndisplay(mydat)\n\n\n\n\n\n\n\n\n\nyear\nAK\nAR\n\n\n\n\n96\n2006\n21.0\n183.0\n\n\n97\n2007\n28.0\n153.0\n\n\n98\n2008\n36.0\n212.0\n\n\n99\n2009\n34.0\n179.0\n\n\n100\n2010\n22.0\n196.0\n\n\n101\n2011\n41.0\n148.0\n\n\n102\n2012\n28.0\n140.0\n\n\n103\n2013\n26.0\n134.0\n\n\n104\n2014\n20.0\n114.0\n\n\n105\n2015\n28.0\n121.0\n\n\n\n\n\n\n:::",
+    "text": "QUESTION|TASK 1\nWrite an SQL query to create a new dataframe about baseball players who attended BYU-Idaho. The new table should contain five columns: playerID, schoolID, salary, and the yearID/teamID associated with each salary. Order the table by salary (highest to lowest) and print out the table in your report.\n\n\nRead and format data\n# Include and execute your code here\n\nq = '''\n    SELECT DISTINCT allstarfull.playerID, collegeplaying.schoolID, salaries.salary, salaries.yearID, salaries.teamID\n    FROM allstarfull \n    INNER JOIN collegeplaying\n    ON allstarfull.playerID = collegeplaying.playerID\n    INNER JOIN salaries\n    ON salaries.playerID = allstarfull.playerID\n    WHERE collegeplaying.schoolID LIKE ('byu%')\n    ORDER BY salary\n'''\n\nresults1 = pd.read_sql_query(q, con)\n\nresults1\n\n\n\n\n\n\n\n\n\nplayerID\nschoolID\nsalary\nyearID\nteamID\n\n\n\n\n0\njoynewa01\nbyu\n65000.0\n1986\nCAL\n\n\n1\naguilri01\nbyu\n130000.0\n1986\nNYN\n\n\n2\njoynewa01\nbyu\n180000.0\n1987\nCAL\n\n\n3\naguilri01\nbyu\n195000.0\n1987\nNYN\n\n\n4\njoynewa01\nbyu\n200000.0\n2001\nANA\n\n\n5\naguilri01\nbyu\n295000.0\n1988\nNYN\n\n\n6\naguilri01\nbyu\n310000.0\n1989\nNYN\n\n\n7\njoynewa01\nbyu\n340000.0\n1988\nCAL\n\n\n8\nmorrija02\nbyu\n350000.0\n1994\nCLE\n\n\n9\nlawva01\nbyu\n375000.0\n1985\nMON\n\n\n10\nlawva01\nbyu\n375000.0\n1988\nCHN\n\n\n11\nlawva01\nbyu\n425000.0\n1989\nCHN\n\n\n12\nlawva01\nbyu\n450000.0\n1986\nMON\n\n\n13\nlawva01\nbyu\n500000.0\n1991\nOAK\n\n\n14\nlawva01\nbyu\n525000.0\n1987\nMON\n\n\n15\naguilri01\nbyu\n648000.0\n1990\nMIN\n\n\n16\nmorrija02\nbyu\n875000.0\n1986\nDET\n\n\n17\nmorrija02\nbyu\n885000.0\n1985\nDET\n\n\n18\njoynewa01\nbyu\n920000.0\n1989\nCAL\n\n\n19\nmorrija02\nbyu\n1000000.0\n1994\nTOR\n\n\n20\naguilri01\nbyu\n1533333.0\n1991\nMIN\n\n\n21\njoynewa01\nbyu\n1750000.0\n1990\nCAL\n\n\n22\nmorrija02\nbyu\n1850000.0\n1987\nDET\n\n\n23\nmorrija02\nbyu\n1988000.0\n1988\nDET\n\n\n24\nmorrija02\nbyu\n1989000.0\n1989\nDET\n\n\n25\njoynewa01\nbyu\n2100000.0\n1991\nCAL\n\n\n26\nmorrija02\nbyu\n2100000.0\n1990\nDET\n\n\n27\naguilri01\nbyu\n2308333.0\n1992\nMIN\n\n\n28\naguilri01\nbyu\n2433333.0\n1993\nMIN\n\n\n29\njoynewa01\nbyu\n2550000.0\n1996\nSDN\n\n\n30\naguilri01\nbyu\n2750000.0\n1998\nMIN\n\n\n31\njoynewa01\nbyu\n2841680.0\n1999\nSDN\n\n\n32\naguilri01\nbyu\n3075000.0\n1997\nMIN\n\n\n33\naguilri01\nbyu\n3260000.0\n1994\nMIN\n\n\n34\njoynewa01\nbyu\n3365099.0\n2000\nATL\n\n\n35\naguilri01\nbyu\n3500000.0\n1996\nMIN\n\n\n36\naguilri01\nbyu\n3500000.0\n2000\nCHN\n\n\n37\nmorrija02\nbyu\n3700000.0\n1991\nMIN\n\n\n38\njoynewa01\nbyu\n3750000.0\n1998\nSDN\n\n\n39\njoynewa01\nbyu\n3800000.0\n1997\nSDN\n\n\n40\njoynewa01\nbyu\n4200000.0\n1992\nKCA\n\n\n41\naguilri01\nbyu\n4300000.0\n1999\nMIN\n\n\n42\naguilri01\nbyu\n4350000.0\n1995\nMIN\n\n\n43\njoynewa01\nbyu\n4400000.0\n1993\nKCA\n\n\n44\nmorrija02\nbyu\n4450000.0\n1992\nTOR\n\n\n45\njoynewa01\nbyu\n4600000.0\n1994\nKCA\n\n\n46\njoynewa01\nbyu\n4800000.0\n1995\nKCA\n\n\n47\nmorrija02\nbyu\n5425000.0\n1993\nTOR",
     "crumbs": [
       "DS250 Projects",
       "Project 3"
@@ -329,9 +351,9 @@
   {
     "objectID": "Projects/project3.html#questiontask-2",
     "href": "Projects/project3.html#questiontask-2",
-    "title": "Client Report - [Insert Project Title]",
+    "title": "Client Report - Finding relationships in baseball",
     "section": "QUESTION|TASK 2",
-    "text": "QUESTION|TASK 2\nCOPY PASTE QUESTION|TASK 2 FROM THE PROJECT HERE\ntype your results and analysis here\n\n\nRead and format data\n# Include and execute your code here\n\n\ninclude figures in chunks and discuss your findings in the figure.\n::: {#cell-Q2 chart .cell execution_count=7}\n\nplot example\n# Include and execute your code here\nchart = px.bar(df.head(200),\n    x=\"name\", \n    y=\"AK\"\n)\nchart.show()\n\n\n                                                \nMy useless chart\n\n:::\n::: {#cell-Q2 table .cell .tbl-cap-location-top tbl-cap=‘Not much of a table’ execution_count=8}\n\ntable example\n# Include and execute your code here\nmydat = df.head(1000)\\\n    .groupby('year')\\\n    .sum()\\\n    .reset_index()\\\n    .tail(10)\\\n    .filter([\"year\", \"AK\",\"AR\"])\n\ndisplay(mydat)\n\n\n\n\n\n\n\n\n\nyear\nAK\nAR\n\n\n\n\n96\n2006\n21.0\n183.0\n\n\n97\n2007\n28.0\n153.0\n\n\n98\n2008\n36.0\n212.0\n\n\n99\n2009\n34.0\n179.0\n\n\n100\n2010\n22.0\n196.0\n\n\n101\n2011\n41.0\n148.0\n\n\n102\n2012\n28.0\n140.0\n\n\n103\n2013\n26.0\n134.0\n\n\n104\n2014\n20.0\n114.0\n\n\n105\n2015\n28.0\n121.0\n\n\n\n\n\n\n:::",
+    "text": "QUESTION|TASK 2\nThis three-part question requires you to calculate batting average (number of hits divided by the number of at-bats)\na. Write an SQL query that provides playerID, yearID, and batting average for players with at least 1 at bat that year. Sort the table from highest batting average to lowest, and then by playerid alphabetically. Show the top 5 results in your report.\n\n\nRead and format data\n# Include and execute your code here\n\n\nb. Use the same query as above, but only include players with at least 10 at bats that year. Print the top 5 results.\n\n\nRead and format data\n# Include and execute your code here\n\n\nc. Now calculate the batting average for players over their entire careers (all years combined). Only include players with at least 100 at bats, and print the top 5 results.\n\n\nRead and format data\n# Include and execute your code here",
     "crumbs": [
       "DS250 Projects",
       "Project 3"
@@ -340,9 +362,9 @@
   {
     "objectID": "Projects/project3.html#questiontask-3",
     "href": "Projects/project3.html#questiontask-3",
-    "title": "Client Report - [Insert Project Title]",
+    "title": "Client Report - Finding relationships in baseball",
     "section": "QUESTION|TASK 3",
-    "text": "QUESTION|TASK 3\nCOPY PASTE QUESTION|TASK 3 FROM THE PROJECT HERE\ntype your results and analysis here\n\n\nRead and format data\n# Include and execute your code here\n\n\ninclude figures in chunks and discuss your findings in the figure.\n::: {#cell-Q3 chart .cell execution_count=10}\n\nplot example\n# Include and execute your code here\nchart = px.bar(df.head(200),\n    x=\"name\", \n    y=\"AK\"\n)\nchart.show()\n\n\n                                                \nMy useless chart\n\n:::\n::: {#cell-Q3 table .cell .tbl-cap-location-top tbl-cap=‘Not much of a table’ execution_count=11}\n\ntable example\n# Include and execute your code here\nmydat = df.head(1000)\\\n    .groupby('year')\\\n    .sum()\\\n    .reset_index()\\\n    .tail(10)\\\n    .filter([\"year\", \"AK\",\"AR\"])\n\ndisplay(mydat)\n\n\n\n\n\n\n\n\n\nyear\nAK\nAR\n\n\n\n\n96\n2006\n21.0\n183.0\n\n\n97\n2007\n28.0\n153.0\n\n\n98\n2008\n36.0\n212.0\n\n\n99\n2009\n34.0\n179.0\n\n\n100\n2010\n22.0\n196.0\n\n\n101\n2011\n41.0\n148.0\n\n\n102\n2012\n28.0\n140.0\n\n\n103\n2013\n26.0\n134.0\n\n\n104\n2014\n20.0\n114.0\n\n\n105\n2015\n28.0\n121.0\n\n\n\n\n\n\n:::",
+    "text": "QUESTION|TASK 3\nPick any two baseball teams and compare them using a metric of your choice (average salary, home runs, number of wins, etc). Write an SQL query to get the data you need, then make a graph using Plotly Express to visualize the comparison. What do you learn?\n\n\nRead and format data\n# Include and execute your code here",
     "crumbs": [
       "DS250 Projects",
       "Project 3"
@@ -472,27 +494,5 @@
     "title": "Sebastian Berber Resume",
     "section": "Irrigation Repair Technician, OnDemand Sprinklers [Liberty Hill, Texas] June 2019 - August 2019",
     "text": "Irrigation Repair Technician, OnDemand Sprinklers [Liberty Hill, Texas] June 2019 - August 2019\n• Conducted pipe and sprinkler repairs, ensuring efficient and effective irrigation systems.\n• Programmed sprinkler systems to meet specific client requirements and optimize water usage.\n• Successfully couriered parts for management and other teams, ensuring seamless operations.\n• Demonstrated professionalism and courtesy when interacting with customers, providing excellent service.\n• Received consistent feedback from employer highlighting my speed, efficiency, and dep\nMarkDown Basics"
-  },
-  {
-    "objectID": "Projects/project2.html#questiontask-4",
-    "href": "Projects/project2.html#questiontask-4",
-    "title": "Client Report - Late flights and Missing Data",
-    "section": "QUESTION|TASK 4",
-    "text": "QUESTION|TASK 4\nAccording to the BTS website, the “Weather” category only accounts for severe weather delays. Mild weather delays are not counted in the “Weather” category, but are actually included in both the “NAS” and “Late-Arriving Aircraft” categories. Your job is to create a new column that calculates the total number of flights delayed by weather (both severe and mild). Use these three rules for your calculations:\nA. 100% of delayed flights in the Weather category are due to weather\nB. 30% of all delayed flights in the Late-Arriving category are due to weather.\nC. From April to August, 40% of delayed flights in the NAS category are due to weather. The rest of the months, the proportion rises to 65%.\n\n\nShow the code\n#%%\nflights = df \n\nweather = (flights.assign(\n    severe = flights.num_of_delays_weather, # no missing\n    nodla_nona = lambda x: (x.num_of_delays_late_aircraft\n        .replace(-999, np.nan)), #missing is -999\n    mild_late = lambda x: x.nodla_nona.fillna(x.nodla_nona.mean())*0.3,\n    mild = np.where( # like an if statement\n        flights.month.isin(['April', 'May', 'June', 'July', 'August']), \n            flights.num_of_delays_nas*0.4,\n            flights.num_of_delays_nas*0.65),\n    weather = lambda x: x.severe + x.mild_late + x.mild,\n    proportion_weather_delay = lambda x: x.weather / x.num_of_delays_total,\n    proportion_weather_total = lambda x:  x.weather / x.num_of_flights_total)\n    .filter(['airport_code','month','year', 'severe','mild', 'mild_late',\n    'weather', 'proportion_weather_total', \n    'proportion_weather_delay', 'num_of_flights_total', 'num_of_delays_total']))\nweather.head()\n\n\n\n\n\n\n\n\n\nairport_code\nmonth\nyear\nsevere\nmild\nmild_late\nweather\nproportion_weather_total\nproportion_weather_delay\nnum_of_flights_total\nnum_of_delays_total\n\n\n\n\n0\nATL\nJanuary\n2005.0\n448\n2988.70\n0.0\n3436.70\n0.098057\n0.411335\n35048\n8355\n\n\n1\nDEN\nJanuary\n2005.0\n233\n607.75\n278.4\n1119.15\n0.088212\n0.354948\n12687\n3153\n\n\n2\nIAD\nJanuary\n2005.0\n61\n581.75\n317.4\n960.15\n0.077550\n0.395123\n12381\n2430\n\n\n3\nORD\nJanuary\n2005.0\n306\n3519.75\n676.5\n4502.25\n0.159688\n0.490548\n28194\n9178\n\n\n4\nSAN\nJanuary\n2005.0\n56\n414.70\n204.0\n674.70\n0.092640\n0.345645\n7283\n1952",
-    "crumbs": [
-      "DS250 Projects",
-      "Project 2"
-    ]
-  },
-  {
-    "objectID": "Projects/project2.html#questiontask-5",
-    "href": "Projects/project2.html#questiontask-5",
-    "title": "Client Report - Late flights and Missing Data",
-    "section": "QUESTION|TASK 5",
-    "text": "QUESTION|TASK 5\nUsing the new weather variable calculated above, create a barplot showing the proportion of all flights that are delayed by weather at each airport. Discuss what you learn from this graph.\nFrom the looks of it, the smallest mean proportion of delays comes from the San Diego Airport while the largest mean proportion of delays comes from San Francisco. From the looks of it, all of the airports have around 30% of flights dealyed to weather which is a huge proportion if you think about it. That is around 1/3 of all flights total!\n\n\nShow the code\nprop_mean = weather.groupby('airport_code')['proportion_weather_delay'].mean()\n\nfig4 = px.bar(prop_mean, title = \"Mean Proportion of Delays Due To Weather For Each Airport\")\nfig4.update_xaxes(title = \"Airport\")\nfig4.update_yaxes(title = \"Proportion Of Weather Delays\")\n\nfig4.show()\nprop_mean\n\n\n                                                \n\n\nairport_code\nATL    0.337303\nDEN    0.316984\nIAD    0.300992\nORD    0.368703\nSAN    0.278825\nSFO    0.371091\nSLC    0.290117\nName: proportion_weather_delay, dtype: float64",
-    "crumbs": [
-      "DS250 Projects",
-      "Project 2"
-    ]
   }
 ]
