@@ -4835,131 +4835,42 @@ vertical-align: -.125em;
 <details class="code-fold">
 <summary>Read and format project data</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Include and execute your code here</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># comment</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>sqlite_file <span class="op">=</span> <span class="st">&#39;lahmansbaseballdb.sqlite&#39;</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>con <span class="op">=</span> sqlite3.<span class="ex">connect</span>(sqlite_file)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-</div>
-<div id="3aa5c3ba" class="cell" data-execution_count="3">
-<details class="code-fold">
-<summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>q6 <span class="op">=</span> <span class="st">&#39;&#39;&#39;</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="st">    SELECT playerID</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="st">    ,      AB</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="st">    ,      H</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="st">    ,      yearID</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="st">    ,      H/(AB * 1.0) AS &#39;Batting_Average&#39;</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="st">    FROM batting</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="st">    WHERE playerID = &#39;addybo01&#39;</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;&#39;&#39;</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_sql_query(q6, con)</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-display" data-execution_count="3">
-<div>
-
-
-<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">playerID</th>
-<th data-quarto-table-cell-role="th">AB</th>
-<th data-quarto-table-cell-role="th">H</th>
-<th data-quarto-table-cell-role="th">yearID</th>
-<th data-quarto-table-cell-role="th">Batting_Average</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
-<td>addybo01</td>
-<td>118</td>
-<td>32</td>
-<td>1871</td>
-<td>0.271186</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
-<td>addybo01</td>
-<td>51</td>
-<td>16</td>
-<td>1873</td>
-<td>0.313725</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
-<td>addybo01</td>
-<td>152</td>
-<td>54</td>
-<td>1873</td>
-<td>0.355263</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
-<td>addybo01</td>
-<td>213</td>
-<td>51</td>
-<td>1874</td>
-<td>0.239437</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
-<td>addybo01</td>
-<td>310</td>
-<td>80</td>
-<td>1875</td>
-<td>0.258065</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">5</td>
-<td>addybo01</td>
-<td>142</td>
-<td>40</td>
-<td>1876</td>
-<td>0.281690</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">6</td>
-<td>addybo01</td>
-<td>245</td>
-<td>68</td>
-<td>1877</td>
-<td>0.277551</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
 </div>
 </section>
 <section id="questiontask-1" class="level2">
 <h2 class="anchored" data-anchor-id="questiontask-1">QUESTION|TASK 1</h2>
 <p><strong>Write an SQL query to create a new dataframe about baseball players who attended BYU-Idaho. The new table should contain five columns: playerID, schoolID, salary, and the yearID/teamID associated with each salary. Order the table by salary (highest to lowest) and print out the table in your report.</strong></p>
-<div id="cell-Q1" class="cell" data-execution_count="4">
+<div id="cell-Q1" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Read and format data</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Include and execute your code here</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>q <span class="op">=</span> <span class="st">&#39;&#39;&#39;</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="st">    SELECT DISTINCT allstarfull.playerID, collegeplaying.schoolID, salaries.salary, salaries.yearID, salaries.teamID</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="st">    FROM allstarfull </span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="st">    INNER JOIN collegeplaying</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="st">    ON allstarfull.playerID = collegeplaying.playerID</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="st">    INNER JOIN salaries</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="st">    ON salaries.playerID = allstarfull.playerID</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="st">    WHERE collegeplaying.schoolID LIKE (&#39;byu%&#39;)</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="st">    ORDER BY salary</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;&#39;&#39;</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>results1 <span class="op">=</span> pd.read_sql_query(q, con)</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>results1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Include and execute your code here</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>q <span class="op">=</span> <span class="st">&#39;&#39;&#39;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="st">    SELECT p.playerID</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="st">    ,      cp.schoolID</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="st">    ,      salary</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="st">    ,      s.yearID</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="st">    ,      s.teamID</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="st">    FROM people p</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="st">    LEFT JOIN collegeplaying cp</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="st">      ON cp.playerID = p.playerID</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="st">    INNER JOIN schools sc</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="st">      ON sc.schoolID = cp.schoolID</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="st">    LEFT JOIN salaries s</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="st">      ON p.playerID = s.playerID</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="st">    WHERE cp.schoolID = &#39;idbyuid&#39;</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="st">    ORDER BY salary DESC</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;&#39;&#39;</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co"># comment</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>results1 <span class="op">=</span> pd.read_sql_query(q, con)</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>results1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div id="q1" class="cell-output cell-output-display" data-execution_count="4">
+<div id="q1" class="cell-output cell-output-display" data-execution_count="3">
 <div>
 
 
@@ -4977,387 +4888,251 @@ vertical-align: -.125em;
 <tbody>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
-<td>joynewa01</td>
-<td>byu</td>
-<td>65000.0</td>
-<td>1986</td>
-<td>CAL</td>
+<td>lindsma01</td>
+<td>idbyuid</td>
+<td>4000000.0</td>
+<td>2014.0</td>
+<td>CHA</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
-<td>aguilri01</td>
-<td>byu</td>
-<td>130000.0</td>
-<td>1986</td>
-<td>NYN</td>
+<td>lindsma01</td>
+<td>idbyuid</td>
+<td>4000000.0</td>
+<td>2014.0</td>
+<td>CHA</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
-<td>joynewa01</td>
-<td>byu</td>
-<td>180000.0</td>
-<td>1987</td>
-<td>CAL</td>
+<td>lindsma01</td>
+<td>idbyuid</td>
+<td>3600000.0</td>
+<td>2012.0</td>
+<td>BAL</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">3</td>
-<td>aguilri01</td>
-<td>byu</td>
-<td>195000.0</td>
-<td>1987</td>
-<td>NYN</td>
+<td>lindsma01</td>
+<td>idbyuid</td>
+<td>3600000.0</td>
+<td>2012.0</td>
+<td>BAL</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">4</td>
-<td>joynewa01</td>
-<td>byu</td>
-<td>200000.0</td>
-<td>2001</td>
-<td>ANA</td>
+<td>lindsma01</td>
+<td>idbyuid</td>
+<td>2800000.0</td>
+<td>2011.0</td>
+<td>COL</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">5</td>
-<td>aguilri01</td>
-<td>byu</td>
-<td>295000.0</td>
-<td>1988</td>
-<td>NYN</td>
+<td>lindsma01</td>
+<td>idbyuid</td>
+<td>2800000.0</td>
+<td>2011.0</td>
+<td>COL</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">6</td>
-<td>aguilri01</td>
-<td>byu</td>
-<td>310000.0</td>
-<td>1989</td>
-<td>NYN</td>
+<td>lindsma01</td>
+<td>idbyuid</td>
+<td>2300000.0</td>
+<td>2013.0</td>
+<td>CHA</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">7</td>
-<td>joynewa01</td>
-<td>byu</td>
-<td>340000.0</td>
-<td>1988</td>
-<td>CAL</td>
+<td>lindsma01</td>
+<td>idbyuid</td>
+<td>2300000.0</td>
+<td>2013.0</td>
+<td>CHA</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">8</td>
-<td>morrija02</td>
-<td>byu</td>
-<td>350000.0</td>
-<td>1994</td>
-<td>CLE</td>
+<td>lindsma01</td>
+<td>idbyuid</td>
+<td>1625000.0</td>
+<td>2010.0</td>
+<td>HOU</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">9</td>
-<td>lawva01</td>
-<td>byu</td>
-<td>375000.0</td>
-<td>1985</td>
-<td>MON</td>
+<td>lindsma01</td>
+<td>idbyuid</td>
+<td>1625000.0</td>
+<td>2010.0</td>
+<td>HOU</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">10</td>
-<td>lawva01</td>
-<td>byu</td>
-<td>375000.0</td>
-<td>1988</td>
-<td>CHN</td>
+<td>stephga01</td>
+<td>idbyuid</td>
+<td>1025000.0</td>
+<td>2001.0</td>
+<td>SLN</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">11</td>
-<td>lawva01</td>
-<td>byu</td>
-<td>425000.0</td>
-<td>1989</td>
-<td>CHN</td>
+<td>stephga01</td>
+<td>idbyuid</td>
+<td>1025000.0</td>
+<td>2001.0</td>
+<td>SLN</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">12</td>
-<td>lawva01</td>
-<td>byu</td>
-<td>450000.0</td>
-<td>1986</td>
-<td>MON</td>
+<td>stephga01</td>
+<td>idbyuid</td>
+<td>900000.0</td>
+<td>2002.0</td>
+<td>SLN</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">13</td>
-<td>lawva01</td>
-<td>byu</td>
-<td>500000.0</td>
-<td>1991</td>
-<td>OAK</td>
+<td>stephga01</td>
+<td>idbyuid</td>
+<td>900000.0</td>
+<td>2002.0</td>
+<td>SLN</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">14</td>
-<td>lawva01</td>
-<td>byu</td>
-<td>525000.0</td>
-<td>1987</td>
-<td>MON</td>
+<td>stephga01</td>
+<td>idbyuid</td>
+<td>800000.0</td>
+<td>2003.0</td>
+<td>SLN</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">15</td>
-<td>aguilri01</td>
-<td>byu</td>
-<td>648000.0</td>
-<td>1990</td>
-<td>MIN</td>
+<td>stephga01</td>
+<td>idbyuid</td>
+<td>800000.0</td>
+<td>2003.0</td>
+<td>SLN</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">16</td>
-<td>morrija02</td>
-<td>byu</td>
-<td>875000.0</td>
-<td>1986</td>
-<td>DET</td>
+<td>stephga01</td>
+<td>idbyuid</td>
+<td>550000.0</td>
+<td>2000.0</td>
+<td>SLN</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">17</td>
-<td>morrija02</td>
-<td>byu</td>
-<td>885000.0</td>
-<td>1985</td>
-<td>DET</td>
+<td>stephga01</td>
+<td>idbyuid</td>
+<td>550000.0</td>
+<td>2000.0</td>
+<td>SLN</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">18</td>
-<td>joynewa01</td>
-<td>byu</td>
-<td>920000.0</td>
-<td>1989</td>
-<td>CAL</td>
+<td>lindsma01</td>
+<td>idbyuid</td>
+<td>410000.0</td>
+<td>2009.0</td>
+<td>FLO</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">19</td>
-<td>morrija02</td>
-<td>byu</td>
-<td>1000000.0</td>
-<td>1994</td>
-<td>TOR</td>
+<td>lindsma01</td>
+<td>idbyuid</td>
+<td>410000.0</td>
+<td>2009.0</td>
+<td>FLO</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">20</td>
-<td>aguilri01</td>
-<td>byu</td>
-<td>1533333.0</td>
-<td>1991</td>
-<td>MIN</td>
+<td>lindsma01</td>
+<td>idbyuid</td>
+<td>395000.0</td>
+<td>2008.0</td>
+<td>FLO</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">21</td>
-<td>joynewa01</td>
-<td>byu</td>
-<td>1750000.0</td>
-<td>1990</td>
-<td>CAL</td>
+<td>lindsma01</td>
+<td>idbyuid</td>
+<td>395000.0</td>
+<td>2008.0</td>
+<td>FLO</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">22</td>
-<td>morrija02</td>
-<td>byu</td>
-<td>1850000.0</td>
-<td>1987</td>
-<td>DET</td>
+<td>lindsma01</td>
+<td>idbyuid</td>
+<td>380000.0</td>
+<td>2007.0</td>
+<td>FLO</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">23</td>
-<td>morrija02</td>
-<td>byu</td>
-<td>1988000.0</td>
-<td>1988</td>
-<td>DET</td>
+<td>lindsma01</td>
+<td>idbyuid</td>
+<td>380000.0</td>
+<td>2007.0</td>
+<td>FLO</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">24</td>
-<td>morrija02</td>
-<td>byu</td>
-<td>1989000.0</td>
-<td>1989</td>
-<td>DET</td>
+<td>stephga01</td>
+<td>idbyuid</td>
+<td>215000.0</td>
+<td>1999.0</td>
+<td>SLN</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">25</td>
-<td>joynewa01</td>
-<td>byu</td>
-<td>2100000.0</td>
-<td>1991</td>
-<td>CAL</td>
+<td>stephga01</td>
+<td>idbyuid</td>
+<td>215000.0</td>
+<td>1999.0</td>
+<td>SLN</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">26</td>
-<td>morrija02</td>
-<td>byu</td>
-<td>2100000.0</td>
-<td>1990</td>
-<td>DET</td>
+<td>stephga01</td>
+<td>idbyuid</td>
+<td>185000.0</td>
+<td>1998.0</td>
+<td>PHI</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">27</td>
-<td>aguilri01</td>
-<td>byu</td>
-<td>2308333.0</td>
-<td>1992</td>
-<td>MIN</td>
+<td>stephga01</td>
+<td>idbyuid</td>
+<td>185000.0</td>
+<td>1998.0</td>
+<td>PHI</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">28</td>
-<td>aguilri01</td>
-<td>byu</td>
-<td>2433333.0</td>
-<td>1993</td>
-<td>MIN</td>
+<td>stephga01</td>
+<td>idbyuid</td>
+<td>150000.0</td>
+<td>1997.0</td>
+<td>PHI</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">29</td>
-<td>joynewa01</td>
-<td>byu</td>
-<td>2550000.0</td>
-<td>1996</td>
-<td>SDN</td>
+<td>stephga01</td>
+<td>idbyuid</td>
+<td>150000.0</td>
+<td>1997.0</td>
+<td>PHI</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">30</td>
-<td>aguilri01</td>
-<td>byu</td>
-<td>2750000.0</td>
-<td>1998</td>
-<td>MIN</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">31</td>
-<td>joynewa01</td>
-<td>byu</td>
-<td>2841680.0</td>
-<td>1999</td>
-<td>SDN</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">32</td>
-<td>aguilri01</td>
-<td>byu</td>
-<td>3075000.0</td>
-<td>1997</td>
-<td>MIN</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">33</td>
-<td>aguilri01</td>
-<td>byu</td>
-<td>3260000.0</td>
-<td>1994</td>
-<td>MIN</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">34</td>
-<td>joynewa01</td>
-<td>byu</td>
-<td>3365099.0</td>
-<td>2000</td>
-<td>ATL</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">35</td>
-<td>aguilri01</td>
-<td>byu</td>
-<td>3500000.0</td>
-<td>1996</td>
-<td>MIN</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">36</td>
-<td>aguilri01</td>
-<td>byu</td>
-<td>3500000.0</td>
-<td>2000</td>
-<td>CHN</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">37</td>
-<td>morrija02</td>
-<td>byu</td>
-<td>3700000.0</td>
-<td>1991</td>
-<td>MIN</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">38</td>
-<td>joynewa01</td>
-<td>byu</td>
-<td>3750000.0</td>
-<td>1998</td>
-<td>SDN</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">39</td>
-<td>joynewa01</td>
-<td>byu</td>
-<td>3800000.0</td>
-<td>1997</td>
-<td>SDN</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">40</td>
-<td>joynewa01</td>
-<td>byu</td>
-<td>4200000.0</td>
-<td>1992</td>
-<td>KCA</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">41</td>
-<td>aguilri01</td>
-<td>byu</td>
-<td>4300000.0</td>
-<td>1999</td>
-<td>MIN</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">42</td>
-<td>aguilri01</td>
-<td>byu</td>
-<td>4350000.0</td>
-<td>1995</td>
-<td>MIN</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">43</td>
-<td>joynewa01</td>
-<td>byu</td>
-<td>4400000.0</td>
-<td>1993</td>
-<td>KCA</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">44</td>
-<td>morrija02</td>
-<td>byu</td>
-<td>4450000.0</td>
-<td>1992</td>
-<td>TOR</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">45</td>
-<td>joynewa01</td>
-<td>byu</td>
-<td>4600000.0</td>
-<td>1994</td>
-<td>KCA</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">46</td>
-<td>joynewa01</td>
-<td>byu</td>
-<td>4800000.0</td>
-<td>1995</td>
-<td>KCA</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">47</td>
-<td>morrija02</td>
-<td>byu</td>
-<td>5425000.0</td>
-<td>1993</td>
-<td>TOR</td>
+<td>catetr01</td>
+<td>idbyuid</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>None</td>
 </tr>
 </tbody>
 </table>
@@ -5370,35 +5145,279 @@ vertical-align: -.125em;
 <h2 class="anchored" data-anchor-id="questiontask-2">QUESTION|TASK 2</h2>
 <p><strong>This three-part question requires you to calculate batting average (number of hits divided by the number of at-bats)</strong></p>
 <p><em>a. Write an SQL query that provides playerID, yearID, and batting average for players with at least 1 at bat that year. Sort the table from highest batting average to lowest, and then by playerid alphabetically. Show the top 5 results in your report.</em></p>
-<div id="q2a" class="cell" data-execution_count="5">
+<div id="cell-Q2a" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Read and format data</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Include and execute your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Include and execute your code here</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>q <span class="op">=</span> <span class="st">&#39;&#39;&#39;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="st">    SELECT playerID</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="st">    ,      yearID</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="st">    ,      ((1.0 * H) / AB) AS &#39;Batting_Average&#39;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="st">    FROM batting</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="st">    WHERE AB &gt;= 1</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="st">    ORDER BY Batting_Average DESC, playerid</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="st">    LIMIT 5</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;&#39;&#39;</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>results2 <span class="op">=</span> pd.read_sql_query(q, con)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>results2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
+<div id="q2a" class="cell-output cell-output-display" data-execution_count="4">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">playerID</th>
+<th data-quarto-table-cell-role="th">yearID</th>
+<th data-quarto-table-cell-role="th">Batting_Average</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>aberal01</td>
+<td>1957</td>
+<td>1.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>abernte02</td>
+<td>1960</td>
+<td>1.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>abramge01</td>
+<td>1923</td>
+<td>1.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>acklefr01</td>
+<td>1964</td>
+<td>1.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>alanirj01</td>
+<td>2019</td>
+<td>1.0</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
 </div>
 <p><em>b. Use the same query as above, but only include players with at least 10 at bats that year. Print the top 5 results.</em></p>
-<div id="q2b" class="cell" data-execution_count="6">
+<div id="cell-Q2b" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Read and format data</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Include and execute your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Include and execute your code here</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>q <span class="op">=</span> <span class="st">&#39;&#39;&#39;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="st">    SELECT playerID</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="st">    ,      yearID</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="st">    ,      ((1.0 * H) / AB) AS &#39;Batting_Average&#39;</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="st">    FROM batting</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="st">    WHERE AB &gt;= 10</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="st">    ORDER BY Batting_Average DESC, playerid</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="st">    LIMIT 5</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;&#39;&#39;</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>results3 <span class="op">=</span> pd.read_sql_query(q, con)</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>results3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
+<div id="q2b" class="cell-output cell-output-display" data-execution_count="5">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">playerID</th>
+<th data-quarto-table-cell-role="th">yearID</th>
+<th data-quarto-table-cell-role="th">Batting_Average</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>nymanny01</td>
+<td>1974</td>
+<td>0.642857</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>carsoma01</td>
+<td>2013</td>
+<td>0.636364</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>altizda01</td>
+<td>1910</td>
+<td>0.600000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>johnsde01</td>
+<td>1975</td>
+<td>0.600000</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>silvech01</td>
+<td>1948</td>
+<td>0.571429</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
 </div>
 <p><em>c. Now calculate the batting average for players over their entire careers (all years combined). Only include players with at least 100 at bats, and print the top 5 results.</em></p>
-<div id="q2c" class="cell" data-execution_count="7">
+<div id="cell-Q2c" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Read and format data</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Include and execute your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Include and execute your code here</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>q <span class="op">=</span> <span class="st">&#39;&#39;&#39;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="st">    SELECT playerID</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="st">    ,      SUM(H) AS &#39;Total_Hits&#39;</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="st">    ,      SUM(AB) AS &#39;Total_At_Bats&#39;</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="st">    ,      ((SUM(H) * 1.0) / SUM(AB)) AS &#39;Batting_Average&#39;</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="st">    FROM batting</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="st">    WHERE AB &gt;= 100</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="st">    GROUP BY playerID</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="st">    LIMIT 5</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;&#39;&#39;</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>results3 <span class="op">=</span> pd.read_sql_query(q, con)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>results3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
+<div id="q2c" class="cell-output cell-output-display" data-execution_count="6">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">playerID</th>
+<th data-quarto-table-cell-role="th">Total_Hits</th>
+<th data-quarto-table-cell-role="th">Total_At_Bats</th>
+<th data-quarto-table-cell-role="th">Batting_Average</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>aaronha01</td>
+<td>3771</td>
+<td>12364</td>
+<td>0.304998</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>aaronto01</td>
+<td>173</td>
+<td>752</td>
+<td>0.230053</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>abbated01</td>
+<td>728</td>
+<td>2852</td>
+<td>0.255259</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>abbeych01</td>
+<td>493</td>
+<td>1756</td>
+<td>0.280752</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>abbotfr01</td>
+<td>107</td>
+<td>513</td>
+<td>0.208577</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
 </div>
 </section>
 <section id="questiontask-3" class="level2">
 <h2 class="anchored" data-anchor-id="questiontask-3">QUESTION|TASK 3</h2>
 <p><strong>Pick any two baseball teams and compare them using a metric of your choice (average salary, home runs, number of wins, etc). Write an SQL query to get the data you need, then make a graph using Plotly Express to visualize the comparison. What do you learn?</strong></p>
-<div id="q3" class="cell" data-execution_count="8">
+<div id="cell-Q3" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Read and format data</summary>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Include and execute your code here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Include and execute your code here</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>q <span class="op">=</span> <span class="st">&#39;&#39;&#39;</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="st">    SELECT name</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="st">    ,      SUM(W) AS &#39;Wins&#39;</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="st">    ,      SUM(G) AS &#39;Total Games&#39;</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="st">    ,      (SUM(W) / (SUM(G) * 1.0)) AS &quot;Win_Rate&quot;</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="st">    FROM teams</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="st">    WHERE name IN (&#39;New York Giants&#39;, &#39;Boston Red Sox&#39;)</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="st">    GROUP BY name</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="st">&#39;&#39;&#39;</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>results4 <span class="op">=</span> pd.read_sql_query(q, con)</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>results4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
+<div id="q3" class="cell-output cell-output-display" data-execution_count="7">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">name</th>
+<th data-quarto-table-cell-role="th">Wins</th>
+<th data-quarto-table-cell-role="th">Total Games</th>
+<th data-quarto-table-cell-role="th">Win_Rate</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>Boston Red Sox</td>
+<td>9074</td>
+<td>17556</td>
+<td>0.516860</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>New York Giants</td>
+<td>6033</td>
+<td>11033</td>
+<td>0.546814</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
 </div>
 
 
