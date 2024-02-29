@@ -49,23 +49,6 @@ sqlite_file = 'lahmansbaseballdb.sqlite'
 con = sqlite3.connect(sqlite_file)
 ```
 
-```{python}
-q6 = '''
-    SELECT playerID
-    ,      AB
-    ,      H
-    ,      yearID
-    ,      H/(AB * 1.0) AS 'Batting_Average'
-    FROM batting
-    WHERE playerID = 'addybo01'
-'''
-
-df = pd.read_sql_query(q6, con)
-
-df
-
-```
-
 ## QUESTION|TASK 1
 
 __Write an SQL query to create a new dataframe about baseball players who attended BYU-Idaho. The new table should contain five columns: playerID, schoolID, salary, and the yearID/teamID associated with each salary. Order the table by salary (highest to lowest) and print out the table in your report.__
@@ -76,14 +59,20 @@ __Write an SQL query to create a new dataframe about baseball players who attend
 # Include and execute your code here
 
 q = '''
-    SELECT DISTINCT allstarfull.playerID, collegeplaying.schoolID, salaries.salary, salaries.yearID, salaries.teamID
-    FROM allstarfull 
-    INNER JOIN collegeplaying
-    ON allstarfull.playerID = collegeplaying.playerID
-    INNER JOIN salaries
-    ON salaries.playerID = allstarfull.playerID
-    WHERE collegeplaying.schoolID LIKE ('byu%')
-    ORDER BY salary
+    SELECT p.playerID
+    ,      cp.schoolID
+    ,      salary
+    ,      s.yearID
+    ,      s.teamID
+    FROM people p
+    LEFT JOIN collegeplaying cp
+      ON cp.playerID = p.playerID
+    INNER JOIN schools sc
+      ON sc.schoolID = cp.schoolID
+    LEFT JOIN salaries s
+      ON p.playerID = s.playerID
+    WHERE cp.schoolID = 'idbyuid'
+    ORDER BY salary DESC
 '''
 # comment
 results1 = pd.read_sql_query(q, con)
@@ -104,7 +93,19 @@ _a. Write an SQL query that provides playerID, yearID, and batting average for p
 #| code-summary: Read and format data
 # Include and execute your code here
 
+q = '''
+    SELECT playerID
+    ,      yearID
+    ,      ((1.0 * H) / AB) AS 'Batting_Average'
+    FROM batting
+    WHERE AB >= 1
+    ORDER BY Batting_Average DESC, playerid
+    LIMIT 5
+'''
 
+results2 = pd.read_sql_query(q, con)
+
+results2
 ```
 
 
@@ -115,6 +116,19 @@ _b. Use the same query as above, but only include players with at least 10 at ba
 #| code-summary: Read and format data
 # Include and execute your code here
 
+q = '''
+    SELECT playerID
+    ,      yearID
+    ,      ((1.0 * H) / AB) AS 'Batting_Average'
+    FROM batting
+    WHERE AB >= 10
+    ORDER BY Batting_Average DESC, playerid
+    LIMIT 5
+'''
+
+results3 = pd.read_sql_query(q, con)
+
+results3
 
 ```
 
@@ -124,6 +138,21 @@ _c. Now calculate the batting average for players over their entire careers (all
 #| label: Q2c
 #| code-summary: Read and format data
 # Include and execute your code here
+
+q = '''
+    SELECT playerID
+    ,      SUM(H) AS 'Total_Hits'
+    ,      SUM(AB) AS 'Total_At_Bats'
+    ,      ((SUM(H) * 1.0) / SUM(AB)) AS 'Batting_Average'
+    FROM batting
+    WHERE AB >= 100
+    GROUP BY playerID
+    LIMIT 5
+'''
+
+results3 = pd.read_sql_query(q, con)
+
+results3
 
 
 ```
@@ -139,7 +168,19 @@ __Pick any two baseball teams and compare them using a metric of your choice (av
 #| code-summary: Read and format data
 # Include and execute your code here
 
+q = '''
+    SELECT name
+    ,      SUM(W) AS 'Wins'
+    ,      SUM(G) AS 'Total Games'
+    ,      (SUM(W) / (SUM(G) * 1.0)) AS "Win_Rate"
+    FROM teams
+    WHERE name IN ('New York Giants', 'Boston Red Sox')
+    GROUP BY name
 
+'''
+results4 = pd.read_sql_query(q, con)
+
+results4
 ```
 
 
