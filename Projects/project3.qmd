@@ -208,6 +208,10 @@ query = '''
     FROM teams
     '''
 
+df = pd.read_sql_query(query, con)
+
+results5
+
 df['Team_Type'] = df['teamID'].apply(lambda x: 'Boston Red Sox' if x == 'BOS' else ('New York Yankees' if x == 'NYA' else 'Other'))
 
 color_map = {'Boston Red Sox': 'red',
