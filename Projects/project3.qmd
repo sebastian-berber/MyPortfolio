@@ -44,7 +44,7 @@ _A SHORT (4-5 SENTENCES) PARAGRAPH THAT `DESCRIBES KEY INSIGHTS` TAKEN FROM METR
 #| label: project data
 #| code-summary: Read and format project data
 # Include and execute your code here
-# comment
+
 sqlite_file = 'lahmansbaseballdb.sqlite'
 con = sqlite3.connect(sqlite_file)
 ```
@@ -59,7 +59,7 @@ __Write an SQL query to create a new dataframe about baseball players who attend
 # Include and execute your code here
 
 q = '''
-    SELECT p.playerID
+    SELECT DISTINCT p.playerID
     ,      cp.schoolID
     ,      salary
     ,      s.yearID
@@ -67,8 +67,6 @@ q = '''
     FROM people p
     LEFT JOIN collegeplaying cp
       ON cp.playerID = p.playerID
-    INNER JOIN schools sc
-      ON sc.schoolID = cp.schoolID
     LEFT JOIN salaries s
       ON p.playerID = s.playerID
     WHERE cp.schoolID = 'idbyuid'
@@ -99,7 +97,7 @@ q = '''
     ,      ((1.0 * H) / AB) AS 'Batting_Average'
     FROM batting
     WHERE AB >= 1
-    ORDER BY Batting_Average DESC, playerid
+    ORDER BY ((1.0 * H) / AB) DESC, playerid
     LIMIT 5
 '''
 
@@ -145,14 +143,14 @@ q = '''
     ,      SUM(AB) AS 'Total_At_Bats'
     ,      ((SUM(H) * 1.0) / SUM(AB)) AS 'Batting_Average'
     FROM batting
-    WHERE AB >= 100
     GROUP BY playerID
+    HAVING SUM(AB) >= 100
     LIMIT 5
 '''
 
-results3 = pd.read_sql_query(q, con)
+results4 = pd.read_sql_query(q, con)
 
-results3
+results4
 
 
 ```
@@ -168,19 +166,62 @@ __Pick any two baseball teams and compare them using a metric of your choice (av
 #| code-summary: Read and format data
 # Include and execute your code here
 
+q1 = '''
+    SELECT w, l
+    FROM teams
+    '''
+
+results5 = pd.read_sql_query(q1, con)
+
+results5
+
+```
+
+```{python}
+#| label: Q3
+#| code-summary: Read and format data
+# Include and execute your code here
+
 q = '''
     SELECT name
-    ,      SUM(W) AS 'Wins'
-    ,      SUM(G) AS 'Total Games'
-    ,      (SUM(W) / (SUM(G) * 1.0)) AS "Win_Rate"
+    ,      W AS 'Wins'
+    ,      L AS 'Losses'
+    ,      (SUM(W) + SUM(L)) AS 'Total_Games'
+    ,      ((SUM(W) * 1.0) / (SUM(W) + SUM(L))) AS 'Win_Rate'
     FROM teams
-    WHERE name IN ('New York Giants', 'Boston Red Sox')
-    GROUP BY name
-
+    GROUP BY teamID
+    ORDER BY Win_Rate DESC
 '''
-results4 = pd.read_sql_query(q, con)
 
-results4
+results5 = pd.read_sql_query(q, con)
+
+results5
+
+```
+
+__Above is a chart of teams from the history of baseball. It consist of it's win/loss ratio to let us know how each team did against it's competition. Below is a scatter plot that shows us all of the teams and how they did with their Win Loss Ratio. As we can see, we have emphasized The Boston Red Sox and The New York Yankees. From what we can see in the graph, the New York Yankees tend to have more win per loss than the Boston Red Sox.__
+
+```{python}
+
+query = '''
+    SELECT * 
+    FROM teams
+    '''
+
+df['Team_Type'] = df['teamID'].apply(lambda x: 'Boston Red Sox' if x == 'BOS' else ('New York Yankees' if x == 'NYA' else 'Other'))
+
+color_map = {'Boston Red Sox': 'red',
+             'New York Yankees': 'blue',
+             'Other': 'gray'}
+
+fig = px.scatter(df, x='W', y='L', color='Team_Type', color_discrete_map=color_map, hover_name='yearID', hover_data={'W': True, 'L': True})
+
+# Update layout for better visualization
+fig.update_layout(title='Baseball Teams Win-Loss Scatter Plot',
+                  xaxis_title='Wins', yaxis_title='Losses',
+                  legend_title='Team', hovermode='closest')
+
+fig.show()
 ```
 
 
