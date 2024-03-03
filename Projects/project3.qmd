@@ -161,21 +161,6 @@ results4
 __Pick any two baseball teams and compare them using a metric of your choice (average salary, home runs, number of wins, etc). Write an SQL query to get the data you need, then make a graph using Plotly Express to visualize the comparison. What do you learn?__
 
 
-```{python}
-#| label: Q3
-#| code-summary: Read and format data
-# Include and execute your code here
-
-q1 = '''
-    SELECT w, l
-    FROM teams
-    '''
-
-results5 = pd.read_sql_query(q1, con)
-
-results5
-
-```
 
 ```{python}
 #| label: Q3
