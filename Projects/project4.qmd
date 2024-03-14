@@ -33,24 +33,40 @@ import numpy as np
 import plotly.express as px
 ```
 
+```{python}
+# %% 
+# scikit learn froms
+from sklearn.model_selection import train_test_split
+from sklearn import tree
+from sklearn.naive_bayes import GaussianNB
+from sklearn.ensemble import GradientBoostingClassifier
+from sklearn import metrics
+```
 
 ## Elevator pitch
 
-_paste your elevator pitch here_
+_STRETCH: Using other packages (schikit - learn, xGBoost)_
 _A SHORT (4-5 SENTENCES) PARAGRAPH THAT `DESCRIBES KEY INSIGHTS` TAKEN FROM METRICS IN THE PROJECT RESULTS THINK TOP OR MOST IMPORTANT RESULTS._
 
 ```{python}
 #| label: project data
 #| code-summary: Read and format project data
 # Include and execute your code here
-df = pd.read_csv("https://github.com/byuidatascience/data4names/raw/master/data-raw/names_year/names_year.csv")
+code = "https://raw.githubusercontent.com/byuidatascience/data4dwellings/master/data-raw/dwellings_ml/dwellings_ml.csv"
+
+
+dwellings_ml = pd.read_csv(code)
+
+code = "https://raw.githubusercontent.com/byuidatascience/data4dwellings/master/data-raw/dwellings_neighborhoods_ml/dwellings_neighborhoods_ml.csv"
+
+neighborhood_ml = pd.read_csv(code)
 ```
 
 __Highlight the Questions and Tasks__
 
 ## QUESTION|TASK 1
 
-__COPY PASTE QUESTION|TASK 1 FROM THE PROJECT HERE__
+__Create 2-3 charts that evaluate potential relationships between the home variables and before1980. Explain what you learn from the charts that could help a machine learning algorithm.__
 
 _type your results and analysis here_
 
@@ -59,46 +75,34 @@ _type your results and analysis here_
 #| code-summary: Read and format data
 # Include and execute your code here
 
-
-```
-
-_include figures in chunks and discuss your findings in the figure._
-
-```{python}
-#| label: Q1 chart
-#| code-summary: plot example
-#| fig-cap: "My useless chart"
-#| fig-align: center
-# Include and execute your code here
-chart = px.bar(df.head(200),
-    x="name", 
-    y="AK"
+h_subset = dwellings_ml.filter(
+    ['livearea', 'finbsmnt', 'basement', 
+    'yearbuilt', 'nocars', 'numbdrm', 'numbaths', 'before1980',
+    'stories', 'yrbuilt', 'sprice']).sample(500)
+chart = px.scatter_matrix(h_subset,
+    dimensions=['basement', 'sprice', 'stories'],
+    color='before1980'
 )
+chart.update_traces(diagonal_visible=False)
 chart.show()
 ```
 
+```{python}
+# %%
+corr = h_subset.drop(columns = 'before1980').corr()
+```
 
 ```{python}
-#| label: Q1 table
-#| code-summary: table example
-#| tbl-cap: "Not much of a table"
-#| tbl-cap-location: top
-# Include and execute your code here
-mydat = df.head(1000)\
-    .groupby('year')\
-    .sum()\
-    .reset_index()\
-    .tail(10)\
-    .filter(["year", "AK","AR"])
-
-display(mydat)
-
+# %%
+px.imshow(corr,text_auto=True)
 ```
+
+__From these charts, it seems as though selling price (sprice) has little correlation with any of the other attributes of the homes. The one that seems to have a relation with the other attributes is number of baths (numbaths).__
 
 
 ## QUESTION|TASK 2
 
-__COPY PASTE QUESTION|TASK 2 FROM THE PROJECT HERE__
+__Build a classification model labeling houses as being built “before 1980” or “during or after 1980”. Your goal is to reach or exceed 90% accuracy. Explain your final model choice (algorithm, tuning parameters, etc) and describe what other models you tried.__
 
 _type your results and analysis here_
 
@@ -106,47 +110,33 @@ _type your results and analysis here_
 #| label: Q2
 #| code-summary: Read and format data
 # Include and execute your code here
+X_pred = dwellings_ml.drop(dwellings_ml.filter(regex = 'before1980|yrbuilt|parcel|abstrprd|stories').columns, axis = 1)
 
-
+y_pred = dwellings_ml.filter(regex = "before1980")
 ```
-
-_include figures in chunks and discuss your findings in the figure._
 
 ```{python}
-#| label: Q2 chart
-#| code-summary: plot example
-#| fig-cap: "My useless chart"
-#| fig-align: center
-# Include and execute your code here
-chart = px.bar(df.head(200),
-    x="name", 
-    y="AK"
-)
-chart.show()
+X_train, X_test, y_train, y_test = train_test_split(
+    X_pred, y_pred, test_size = .30, random_state = 76)  
 ```
-
 
 ```{python}
-#| label: Q2 table
-#| code-summary: table example
-#| tbl-cap: "Not much of a table"
-#| tbl-cap-location: top
-# Include and execute your code here
-mydat = df.head(1000)\
-    .groupby('year')\
-    .sum()\
-    .reset_index()\
-    .tail(10)\
-    .filter(["year", "AK","AR"])
-
-display(mydat)
-
+clf = tree.DecisionTreeClassifier()
+clf = clf.fit(X_train, y_train)
+y_pred = clf.predict(X_test)
+y_probs = clf.predict_proba(X_test)
 ```
+
+```{python}
+# %%
+print(metrics.classification_report(y_pred, y_test))
+```
+
 
 
 ## QUESTION|TASK 3
 
-__COPY PASTE QUESTION|TASK 3 FROM THE PROJECT HERE__
+__Justify your classification model by discussing the most important features selected by your model. This discussion should include a chart and a description of the features.__
 
 _type your results and analysis here_
 
@@ -190,3 +180,8 @@ mydat = df.head(1000)\
 display(mydat)
 
 ```
+
+
+## QUESTION|TASK 4
+
+__Describe the quality of your classification model using 2-3 different evaluation metrics. You also need to explain how to interpret each of the evaluation metrics you use.__
